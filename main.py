@@ -2,7 +2,10 @@ from A import definir_variables
 #from E import 
 from F import leer_matriz
 from G import construir_matriz_semejanza
+import H
+from I import criterio_bo_conexo
 import os,time
+
 #A-D
 variables = definir_variables()
 print("datos guardados:")    
@@ -19,7 +22,22 @@ funcion_semejanza = "distancia_euclidiana" if funcion_semejanza == "1" else "pro
 #F    
 matriz = leer_matriz()
 if matriz is None:
+    time.sleep(5)
+    os.system('cls')
     print("Error al leer la matriz.")
     pass
 # Paso G: 
 matriz_semejanza = construir_matriz_semejanza(matriz, funcion_semejanza)
+
+# Paso H: 
+umbral = H.calcular_umbral(matriz_semejanza)
+time.sleep(5)
+os.system('cls')
+print(f"\nUmbral de semejanza calculado: {umbral}")
+
+#I
+grupos = criterio_bo_conexo(matriz_semejanza, umbral)
+
+print("\nGrupos formados:")
+for idx, grupo in enumerate(grupos, start=1):
+    print(f"Grupo {idx}: {grupo}")
